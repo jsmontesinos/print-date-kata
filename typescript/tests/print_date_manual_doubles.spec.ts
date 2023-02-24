@@ -1,6 +1,6 @@
 import PrintDate from "../src/print_date";
 
-class Calendar {
+class CalendarDouble {
   constructor(private injectedDate: Date) {}
 
   today(): Date {
@@ -8,28 +8,25 @@ class Calendar {
   }
 }
 
-class Printer {
-  constructor(private expectedLine: string) {}
-
-  public isCalledWithExpectedLine: boolean = false;
+class PrinterDouble {
+  public calledWithLine: string | null = null;
 
   printLine(line: string): void {
-    this.isCalledWithExpectedLine = this.expectedLine === line;
+    this.calledWithLine = line;
   }
 }
 
 describe("Test suite", () => {
   it("should print a date", () => {
-    const someDate = new Date();
+    const someDate = new Date(333);
 
-    const calendar = new Calendar(someDate);
-
-    const printer = new Printer(someDate.toString());
+    const calendar = new CalendarDouble(someDate);
+    const printer = new PrinterDouble();
 
     const printDate = new PrintDate(calendar, printer);
 
     printDate.printCurrentDate();
 
-    expect(printer.isCalledWithExpectedLine).toBe(true);
+    expect(printer.calledWithLine).toEqual(someDate.toString());
   });
 });
