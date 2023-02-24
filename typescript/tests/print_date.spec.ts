@@ -1,12 +1,21 @@
 import PrintDate from "../src/print_date";
-import Calendar from "../src/calendar";
-import Printer from "../src/printer";
 
 describe("Test suite", () => {
-  it("find a proper name for this test", () => {
-    const calendar = new Calendar();
-    const printer = new Printer();
+  it("should print a date", () => {
+    const someDate = new Date();
+
+    const calendar = {
+      today: jest.fn().mockReturnValue(someDate),
+    };
+
+    const printer = {
+      printLine: jest.fn(),
+    };
+
     const printDate = new PrintDate(calendar, printer);
+
     printDate.printCurrentDate();
+
+    expect(printer.printLine).toBeCalledWith(someDate.toString());
   });
 });
