@@ -19,10 +19,8 @@ class PrinterDouble {
 describe("Test suite", () => {
   it("should print a date", () => {
     const someDate = new Date();
-
     const calendar = new CalendarDouble(someDate);
     const printer = new PrinterDouble();
-
     const printDate = new PrintDate(calendar, printer);
 
     printDate.printCurrentDate();
