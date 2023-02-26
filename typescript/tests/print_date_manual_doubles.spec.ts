@@ -1,14 +1,16 @@
+import Calendar from "../src/calendar";
+import Printer from "../src/printer";
 import PrintDate from "../src/print_date";
 
-class CalendarDouble {
-  constructor(private injectedDate: Date) {}
+class CalendarDouble implements Calendar {
+  constructor(private mockedDate: Date) {}
 
   today(): Date {
-    return this.injectedDate;
+    return this.mockedDate;
   }
 }
 
-class PrinterDouble {
+class PrinterDouble implements Printer {
   public calledWithLine: string | null = null;
 
   printLine(line: string): void {
